@@ -197,19 +197,21 @@
             el = images[wrap(center)];
 
             // Add active class to center item.
-            if (!$(el).hasClass('active')) {
+            if (el && !$(el).hasClass('active')) {
               view.find('.carousel-item').removeClass('active');
               $(el).addClass('active');
             }
-            el.style[xform] = alignment +
-              ' translateX(' + (-delta / 2) + 'px)' +
-              ' translateX(' + (dir * options.shift * tween * i) + 'px)' +
-              ' translateZ(' + (options.dist * tween) + 'px)';
-            el.style.zIndex = 0;
-            if (options.fullWidth) { tweenedOpacity = 1; }
-            else { tweenedOpacity = 1 - 0.2 * tween; }
-            el.style.opacity = tweenedOpacity;
-            el.style.display = 'block';
+            if (el && el.style) {
+              el.style[xform] = alignment +
+                ' translateX(' + (-delta / 2) + 'px)' +
+                ' translateX(' + (dir * options.shift * tween * i) + 'px)' +
+                ' translateZ(' + (options.dist * tween) + 'px)';
+              el.style.zIndex = 0;
+              if (options.fullWidth) { tweenedOpacity = 1; }
+              else { tweenedOpacity = 1 - 0.2 * tween; }
+              el.style.opacity = tweenedOpacity;
+              el.style.display = 'block';
+            }
           }
 
           for (i = 1; i <= half; ++i) {
@@ -224,12 +226,14 @@
             // Don't show wrapped items.
             if (!options.noWrap || center + i < count) {
               el = images[wrap(center + i)];
-              el.style[xform] = alignment +
-                ' translateX(' + (options.shift + (dim * i - delta) / 2) + 'px)' +
-                ' translateZ(' + zTranslation + 'px)';
-              el.style.zIndex = -i;
-              el.style.opacity = tweenedOpacity;
-              el.style.display = 'block';
+              if (el && el.style) {
+                el.style[xform] = alignment +
+                  ' translateX(' + (options.shift + (dim * i - delta) / 2) + 'px)' +
+                  ' translateZ(' + zTranslation + 'px)';
+                el.style.zIndex = -i;
+                el.style.opacity = tweenedOpacity;
+                el.style.display = 'block';
+              }
             }
 
 
@@ -244,12 +248,14 @@
             // Don't show wrapped items.
             if (!options.noWrap || center - i >= 0) {
               el = images[wrap(center - i)];
-              el.style[xform] = alignment +
-                ' translateX(' + (-options.shift + (-dim * i - delta) / 2) + 'px)' +
-                ' translateZ(' + zTranslation + 'px)';
-              el.style.zIndex = -i;
-              el.style.opacity = tweenedOpacity;
-              el.style.display = 'block';
+              if (el && el.style) {
+                el.style[xform] = alignment +
+                  ' translateX(' + (-options.shift + (-dim * i - delta) / 2) + 'px)' +
+                  ' translateZ(' + zTranslation + 'px)';
+                el.style.zIndex = -i;
+                el.style.opacity = tweenedOpacity;
+                el.style.display = 'block';
+              }
             }
           }
 
@@ -257,15 +263,17 @@
           // Don't show wrapped items.
           if (!options.noWrap || (center >= 0 && center < count)) {
             el = images[wrap(center)];
-            el.style[xform] = alignment +
-              ' translateX(' + (-delta / 2) + 'px)' +
-              ' translateX(' + (dir * options.shift * tween) + 'px)' +
-              ' translateZ(' + (options.dist * tween) + 'px)';
-            el.style.zIndex = 0;
-            if (options.fullWidth) { tweenedOpacity = 1; }
-            else { tweenedOpacity = 1 - 0.2 * tween; }
-            el.style.opacity = tweenedOpacity;
-            el.style.display = 'block';
+            if (el && el.style) {
+              el.style[xform] = alignment +
+                ' translateX(' + (-delta / 2) + 'px)' +
+                ' translateX(' + (dir * options.shift * tween) + 'px)' +
+                ' translateZ(' + (options.dist * tween) + 'px)';
+              el.style.zIndex = 0;
+              if (options.fullWidth) { tweenedOpacity = 1; }
+              else { tweenedOpacity = 1 - 0.2 * tween; }
+              el.style.opacity = tweenedOpacity;
+              el.style.display = 'block';
+            }
           }
 
           // onCycleTo callback

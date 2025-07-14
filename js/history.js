@@ -1,4 +1,4 @@
-define([ "jquery", "lodash", "notify", "i18n", "files", "vo", "date", "message", "options", "guide" ], function( $, _, Notify, i18n, files, vo, date, message, options, guide ) {
+define([ "jquery", "notify", "i18n", "files", "vo", "date", "message", "options", "guide" ], function( $, Notify, i18n, files, vo, date, message, options, guide ) {
 
     var current, base64, timestart,
         MAX     = 5,
@@ -70,9 +70,9 @@ define([ "jquery", "lodash", "notify", "i18n", "files", "vo", "date", "message",
 
     function render() {
         var history  = JSON.parse( localStorage[ "simptab-history" ] || '[]' ),
-            tmpl     = '<img data-idx="<%=idx%>" id="<%= history.enddate%>" src="filesystem:' + chrome.runtime.getURL( "/" ) + 'temporary/history-' + '<%= history.enddate %>.jpg">',
-            compiled = _.template( '<% jq.each( historys, function( idx, history ) { %>' + tmpl + '<% }); %>', { 'imports': { 'jq': jQuery }} ),
-            html     = compiled({ 'historys': history });
+            html     = history.map(function(item, idx) {
+                return '<img data-idx="' + idx + '" id="' + item.enddate + '" src="filesystem:' + chrome.runtime.getURL( "/" ) + 'temporary/history-' + item.enddate + '.jpg">';
+            }).join('');
         history.length == 0 && ( html = i18n.GetLang( "history_empty" ) )
         $( ".history" ).html( html );
     }

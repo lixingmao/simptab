@@ -1,5 +1,5 @@
 
-define([ "jquery", "mousetrap", "lodash", "notify", "unveil", "i18n", "message", "comps", "guide" ], function( $, Mousetrap, _, Notify, unveil, i18n, message, comps, guide ) {
+define([ "jquery", "mousetrap", "notify", "unveil", "i18n", "message", "comps", "guide" ], function( $, Mousetrap, Notify, unveil, i18n, message, comps, guide ) {
 
     "use strict";
 
@@ -97,16 +97,9 @@ define([ "jquery", "mousetrap", "lodash", "notify", "unveil", "i18n", "message",
     }
 
     function run() {
-        try {
-            var func = function ( source ) {
-                window.Notify   = Notify;
-                window.template = _.template;
-                return '( function ( $$version, Notify, template ) {' + source + '})( "0.0.1", Notify, template );'
-            };
-            new Function( func( storage.db.script ) )();
-        } catch ( error ) {
-            console.error( error )
-        }
+        // Custom script functionality disabled for security compliance (CSP unsafe-eval)
+        // Users can still use custom CSS for styling customization
+        console.warn("Custom script functionality disabled for security compliance");
     }
 
     function correctWinSize() {
@@ -129,9 +122,9 @@ define([ "jquery", "mousetrap", "lodash", "notify", "unveil", "i18n", "message",
      *********************************************/
 
     function themeView() {
-        var tmpl     = '<div class="theme name-<%- theme %> waves-effect" name="<%- theme %>" style="background-color:#<%- theme %>;"></div>',
-            compiled = _.template( '<% jq.each( themes, function( idx, theme ) { %>' + tmpl + '<% }); %>', { 'imports': { 'jq': jQuery }} ),
-            html     = compiled({ 'themes': storage.themes });
+        var html     = storage.themes.map(function(theme) {
+                return '<div class="theme name-' + theme + ' waves-effect" name="' + theme + '" style="background-color:#' + theme + ';"></div>';
+            }).join('');
         return html;
     }
 
@@ -349,8 +342,16 @@ define([ "jquery", "mousetrap", "lodash", "notify", "unveil", "i18n", "message",
                             <div class="download"  data-balloon-pos="up" data-balloon="' + i18n.GetLang( "zen_mode_setting_snippets_toolbar_download" ) + '" data-src="<%- root + item.download %>"><i class="fas fa-cloud-download-alt waves-effect"></i></div>\
                         </div>\
                     </div>',
-            scrComp  = _.template( '<% jq.each( items, function( idx, item ) { %>' + html + '<% }); %>', { 'imports': { 'jq': jQuery, 'root': result.root }} ),
-            srcHtml  = scrComp({ 'items': result.items }),
+            srcHtml  = result.items.map(function(item) {
+                return html.replace(/<%- root \+ item\.snap %>/g, result.root + item.snap)
+                          .replace(/<%- item\.title %>/g, item.title)
+                          .replace(/<%- item\.desc \|\| ".*?" %>/g, item.desc || i18n.GetLang( "zen_mode_setting_snippets_toolbar_desc" ))
+                          .replace(/<%- item\.author\.name %>/g, item.author.name)
+                          .replace(/<%- item\.author\.contact %>/g, item.author.contact)
+                          .replace(/<%- item\.link %>/g, item.link)
+                          .replace(/<%- item\.version %>/g, item.version)
+                          .replace(/<%- root \+ item\.download %>/g, result.root + item.download);
+            }).join(''),
             tmpl     = '\
                         <div class="close"><span class="close"></span></div>\
                         <div class="scripts">\

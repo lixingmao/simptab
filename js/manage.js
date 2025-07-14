@@ -1,5 +1,5 @@
 
-define([ "jquery", "lodash", "notify", "i18n", "vo", "date", "options", "files", "message", "unveil", "history" ], function( $, _, Notify, i18n, vo, date, options, files, message, unveil, history ) {
+define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message", "unveil", "history" ], function( $, Notify, i18n, vo, date, options, files, message, unveil, history ) {
 
     "use strict";
 
@@ -198,8 +198,11 @@ define([ "jquery", "lodash", "notify", "i18n", "vo", "date", "options", "files",
     function getFavoriteTmpl() {
         files.List( function( result ) {
             if ( result.length > 0 ) {
-                var compiled = _.template( '<% jq.each( albums, function( idx, album ) { %>' + favTmpl + '<% }); %>', { 'imports': { 'jq': jQuery }} ),
-                    html     = compiled({ 'albums': result });
+                var html     = result.map(function(album) {
+                        return favTmpl.replace(/<%- album\.title %>/g, album.title)
+                                      .replace(/<%- album\.url %>/g, album.url)
+                                      .replace(/<%- album\.user %>/g, album.user);
+                    }).join('');
                 $( ".manage .albums .favorite" ).html( html );
             } else $( ".manage .empty" ).text( i18n.GetLang( "mange_explore_empty" ) );
         });
@@ -245,12 +248,18 @@ define([ "jquery", "lodash", "notify", "i18n", "vo", "date", "options", "files",
                         images = albums[idx];
 
                     // get images html template
-                    var imgComp  = _.template( '<% jq.each( images, function( idx, image ) { %>' + imgTmpl + '<% }); %>', { 'imports': { 'jq': jQuery }} ),
-                        imgHtml  = imgComp({ 'images': images });
+                    var imgHtml  = images.map(function(image) {
+                            return imgTmpl.replace(/<%- image\.url %>/g, image.url)
+                                          .replace(/<%- image\.info %>/g, image.info)
+                                          .replace(/<%- image\.hdurl %>/g, image.hdurl);
+                        }).join('');
 
                     // get subscribe html template
-                    var scribComp = _.template( subTmpl ),
-                        scribHTML = scribComp({ title: title, desc: desc, name: name, contact: contact, images: imgHtml });
+                    var scribHTML = subTmpl.replace(/<%- title %>/g, title)
+                                          .replace(/<%- desc %>/g, desc)
+                                          .replace(/<%- name %>/g, name)
+                                          .replace(/<%- contact %>/g, contact)
+                                          .replace(/<%- images %>/g, imgHtml);
 
                     html += scribHTML;
                 });
@@ -306,8 +315,14 @@ define([ "jquery", "lodash", "notify", "i18n", "vo", "date", "options", "files",
                                 down: item.urls.full,
                             });
                         }
-                        var compiled = _.template( '<% jq.each( albums, function( idx, album ) { %>' + exploreTmpl + '<% }); %>', { 'imports': { 'jq': jQuery }} ),
-                        html         = compiled({ 'albums': items });
+                        var html     = items.map(function(album) {
+                                return exploreTmpl.replace(/<%- album\.thumb %>/g, album.thumb)
+                                                  .replace(/<%- album\.url %>/g, album.url)
+                                                  .replace(/<%- album\.name %>/g, album.name)
+                                                  .replace(/<%- album\.contact %>/g, album.contact)
+                                                  .replace(/<%- album\.info %>/g, album.info)
+                                                  .replace(/<%- album\.down %>/g, album.down);
+                            }).join('');
                         $( ".manage .albums .explore .empty" ).remove();
                         $( ".manage .albums .explore" ).append( html );
                         $( ".manage .albums .explore").scroll()

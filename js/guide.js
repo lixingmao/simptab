@@ -1,5 +1,5 @@
 
-define([ "jquery", "mousetrap", "lodash", "notify", "i18n" ], function( $, Mousetrap, _, Notify, i18n, comps ) {
+define([ "jquery", "mousetrap", "notify", "i18n" ], function( $, Mousetrap, Notify, i18n, comps ) {
 
     "use strict";
 

@@ -1,4 +1,4 @@
-define([ "jquery", "lodash", "notify", "i18n" ], function( $, _, Notify, i18n ) {
+define([ "jquery", "notify", "i18n" ], function( $, Notify, i18n ) {
 
     var prefix = i18n.GetLang( 'lang' ) == "cn" ? "" : i18n.GetLang( 'lang' ),
         rTmpl  = '\

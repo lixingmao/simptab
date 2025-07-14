@@ -1,5 +1,5 @@
 
-define([ "jquery", "mousetrap", "lodash", "carousel", "i18n" ], function( $, Mousetrap, _, carousel, i18n ) {
+define([ "jquery", "mousetrap", "carousel", "i18n" ], function( $, Mousetrap, carousel, i18n ) {
 
     var details = {
             "others": '\
@@ -165,8 +165,9 @@ define([ "jquery", "mousetrap", "lodash", "carousel", "i18n" ], function( $, Mou
                                 <div class="desc">' + i18n.GetLang( "welcome_end_desc" ) +'</div>\
                             </div>\
                         </div>';
-            var compiled = _.template( welcomeTmpl ),
-                html     = compiled({ prev: prev_paging, next: next_paging, welcome: tmpl });
+            var html     = welcomeTmpl.replace(/<%- prev %>/g, prev_paging)
+                                      .replace(/<%- next %>/g, next_paging)
+                                      .replace(/<%- welcome %>/g, tmpl);
             callback     = cb;
             $( "body" ).append( html );
             setTimeout( function() {

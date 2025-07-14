@@ -1,5 +1,5 @@
 
-define([ "jquery", "mousetrap", "lodash", "notify", "i18n", "vo", "date" ], function( $, Mousetrap, _, Notify, i18n, vo, date ) {
+define([ "jquery", "mousetrap", "notify", "i18n", "vo", "date" ], function( $, Mousetrap, Notify, i18n, vo, date ) {
 
     return {
         Switches: function( cls ) {
@@ -10,9 +10,9 @@ define([ "jquery", "mousetrap", "lodash", "notify", "i18n", "vo", "date" ], func
         },
 
         Dropdown: function( target, cls, items, label ) {
-            var tmpl     = '<div class="list-filed" value="<%- item.value %>"><%- item.name %></div>',
-                compiled = _.template( '<% jq.each( items, function( idx, item ) { %>' + tmpl + '<% }); %>', { 'imports': { 'jq': jQuery }} ),
-                html     = compiled({ 'items': items }),
+            var html     = items.map(function(item) {
+                    return '<div class="list-filed" value="' + item.value + '">' + item.name + '</div>';
+                }).join(''),
                 current  = items.find( function( item ) { return item.value == label });
 
             target = target + " ." + cls;
@@ -43,9 +43,7 @@ define([ "jquery", "mousetrap", "lodash", "notify", "i18n", "vo", "date" ], func
 
         Slider: function( min, max, value, cls ) {
             var target   = ".md-slider-root ." + cls,
-                tmpl     = '<input type="range" min="<%- min %>" max="<%- max %>" value="<%- value %>" class="md-slider <%- cls %>" id="<%- cls %>">',
-                compiled = _.template( tmpl );
-                html     = compiled({ min: min, max: max, value: value, cls: cls }),
+                html     = '<input type="range" min="' + min + '" max="' + max + '" value="' + value + '" class="md-slider ' + cls + '" id="' + cls + '">',
                 lineWidth= function ( $target, value ) {
                     var maxWidth = $target.width(),
                         perc     = ( max - value ) / ( max - min ),

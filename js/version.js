@@ -37,12 +37,12 @@ define([ "jquery", "notify", "i18n" ], function( $, Notify, i18n ) {
                 permissions: [
                     "https://*.unsplash.com/",
                     "https://*.unsplash.it/",
-                    "http://*.wallhaven.cc/",
+                    "https://*.wallhaven.cc/",
                     "https://*.staticflickr.com/",
-                    "http://*.desktopprassets.com/",
+                    "https://*.desktopprassets.com/",
                     "https://*.500px.org/",
-                    "http://*.vo.msecnd.net/",
-                    "http://*.nasa.gov/"
+                    "https://*.vo.msecnd.net/",
+                    "https://*.nasa.gov/"
                 ]
             },
             "1.4.4" : {

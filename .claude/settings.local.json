@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:developer.chrome.com)",
+      "Bash(mkdir:*)",
+      "Bash(npm run publish:*)",
+      "Bash(npm install:*)",
+      "Bash(grep:*)",
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  }
+}

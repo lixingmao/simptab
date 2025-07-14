@@ -1,4 +1,4 @@
-define([ "jquery", "lodash", "waves", "i18n", "message", "guide" ], function( $, _, Waves, i18n, message, guide ) {
+define([ "jquery", "waves", "i18n", "message", "guide" ], function( $, Waves, i18n, message, guide ) {
 
     var bookmarks  = { origin: [], root: [], folders: [], recent: [], all: [], search: [] },
         timestart,
@@ -194,8 +194,10 @@ define([ "jquery", "lodash", "waves", "i18n", "message", "guide" ], function( $,
             url     = item.url,
             avatar  = title.substr( 0, 1 ),
             bgColor = getBgColor( avatar );
-        var compiled= _.template( fileTmpl ),
-            html    = compiled({ title: title, url: url, avatar: avatar, bgColor: bgColor });
+        var html    = fileTmpl.replace(/<%- title %>/g, title)
+                                .replace(/<%- url %>/g, url)
+                                .replace(/<%- avatar %>/g, avatar)
+                                .replace(/<%- bgColor %>/g, bgColor);
         fileHTML += html;
     }
 
@@ -303,8 +305,10 @@ define([ "jquery", "lodash", "waves", "i18n", "message", "guide" ], function( $,
             url     = item.url,
             avatar  = fmtTitle( title ).substr( 0, 1 ),
             bgColor = item.color ? item.color : getBgColor( avatar );
-            compiled= _.template( tmpl ),
-            html    = compiled({ title: title, url: url, avatar: avatar, bgColor: bgColor });
+            html    = tmpl.replace(/<%- title %>/g, title)
+                          .replace(/<%- url %>/g, url)
+                          .replace(/<%- avatar %>/g, avatar)
+                          .replace(/<%- bgColor %>/g, bgColor);
         return html;
     }
 

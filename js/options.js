@@ -1,5 +1,5 @@
 
-define([ "jquery", "mousetrap", "lodash", "notify", "i18n", "comps", "permissions", "guide" ], function( $, Mousetrap, _, Notify, i18n, comps, permissions, guide ) {
+define([ "jquery", "mousetrap", "notify", "i18n", "comps", "permissions", "guide" ], function( $, Mousetrap, Notify, i18n, comps, permissions, guide ) {
 
     "use strict";
 
@@ -381,17 +381,13 @@ define([ "jquery", "mousetrap", "lodash", "notify", "i18n", "comps", "permission
      *********************************************/
 
     function customScriptView() {
-        var tmpl = '<textarea class="md-textarea"></textarea>\
-                    <div class="notice">' + i18n.GetLang( "options_custom_script_notice" ) + '</div>';
+        var tmpl = '<div class="notice" style="color: #ff6b6b; font-weight: bold;">' + i18n.GetLang( "options_custom_script_disabled" ) + '</div>';
         return tmpl;
     }
 
     function customScriptModel() {
-        $( ".options .custom-script" ).find( "textarea" ).text( storage.db.script );
-        $( ".options" ).on( "keyup", ".custom-script textarea", function( event ) {
-            storage.db.script = event.target.value;
-            storage.Set();
-        });
+        // Custom script functionality disabled for security compliance
+        // Users can still use custom CSS for styling customization
     }
 
     /*********************************************

@@ -5,7 +5,6 @@ requirejs.config({
 
       "jquery"     : "vender/jquery-3.3.1.min",
       "unveil"     : "vender/jquery.unveil",
-      "lodash"     : "vender/lodash",
       "mousetrap"  : "vender/mousetrap.min",
       "progressbar": "vender/progressbar.min",
       "notify"     : "vender/notify/notify.min",
@@ -52,7 +51,7 @@ requirejs.config({
 });
 
 // main
-requirejs([ "jquery", "lodash", "notify", "background", "date" , "controlbar", "setting", "i18n", "shortcuts", "files", "topsites", "version", "progress", "waves", "message", "bookmarks", "welcome", "zen", "options", "noise", "vo", "history", "permissions", "guide", "intro" ], function ( $, _, Notify, background, date, controlbar, setting, i18n, shortcuts, files, topsites, version, progress, Waves, message, bookmarks, welcome, zen, options, noise, vo, history, permissions, guide, introJs ) {
+requirejs([ "jquery", "notify", "background", "date" , "controlbar", "setting", "i18n", "shortcuts", "files", "topsites", "version", "progress", "waves", "message", "bookmarks", "welcome", "zen", "options", "noise", "vo", "history", "permissions", "guide", "intro" ], function ( $, Notify, background, date, controlbar, setting, i18n, shortcuts, files, topsites, version, progress, Waves, message, bookmarks, welcome, zen, options, noise, vo, history, permissions, guide, introJs ) {
 
     progress.Init();
 
@@ -112,8 +111,7 @@ requirejs([ "jquery", "lodash", "notify", "background", "date" , "controlbar", "
     shortcuts.Init();
 
     // custom title
-    if ( options.Storage.db.title.startsWith( '(function()' ) ) new Function( options.Storage.db.title )();
-    else options.Storage.db.title && ( document.title = options.Storage.db.title );
+    options.Storage.db.title && ( document.title = options.Storage.db.title );
 
     version.Init( function( ver ) {
         welcome.Render( ver, function() {
@@ -182,10 +180,7 @@ requirejs([ "jquery", "lodash", "notify", "background", "date" , "controlbar", "
 
     localStorage[ "simptab-background-mode" ] == "earth" && guide.Tips( "earth" );
 
-    try {
-        options.Storage.db.script != "" && setTimeout( function() { new Function( options.Storage.db.script )(); }, 1000 );
-    } catch ( error ) {
-        console.error( '此脚本运行时出现错误，错误信息 ', error )
-    }
+    // Custom script functionality removed for security reasons (CSP unsafe-eval compliance)
+    // Users can still use custom CSS for styling customization
 
 });

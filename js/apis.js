@@ -64,8 +64,8 @@ define([ "jquery", "i18n", "setting", "vo", "date", "error", "cdns", "options", 
                 else {
                     while ( Verify( code ) == "false"  ||
                             //localStorage[ "simptab-prv-code" ] == code ||
-                            // hiden origins include: flickr 500px nasa holiday
-                            code == 3 || code == 5 || code == 8 || code == 11 || code == 13 ) {
+                            // hiden origins include: bing random only (due to 526 error)
+                            code == 12 ) {
                         code = this.Random( 0, this.ORIGINS_MAX - 1 );
                     }
                     //localStorage[ "simptab-prv-code" ] = code;
@@ -207,7 +207,7 @@ define([ "jquery", "i18n", "setting", "vo", "date", "error", "cdns", "options", 
         var dtd    = $.Deferred(),
             max    = wallhaven_ids.length - 1,
             id     = wallhaven_ids[ apis.Random( 0, max ) ],
-            url    = "http://alpha.wallhaven.cc/wallpapers/full/wallhaven-" + id + ".jpg";
+            url    = "https://alpha.wallhaven.cc/wallpapers/full/wallhaven-" + id + ".jpg";
         apis.Update({ url : url, method: "apis.wallhaven()", dataType : "image" });
         dtd.resolve( url, url, "Wallhaven.cc Image", "#", date.Now(), "Wallhaven.cc Image", apis.vo.origin, apis.vo );
       }
@@ -512,7 +512,7 @@ define([ "jquery", "i18n", "setting", "vo", "date", "error", "cdns", "options", 
 
       console.log( "=== nasa.gov call ===");
 
-      var rss = "http://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss";
+      var rss = "https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss";
       $.ajax({
             type       : "GET",
             timeout    : 2000*10,

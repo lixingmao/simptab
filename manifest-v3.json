@@ -39,7 +39,22 @@
         "https://*.500px.org/*",
         "https://*.vo.msecnd.net/*",
         "https://*.nasa.gov/*",
-        "https://*.flickr.com/*"
+        "https://*.flickr.com/*",
+        "https://*.myqcloud.com/*",
+        "https://*.ax1x.com/*",
+        "https://*.loli.net/*",
+        "https://*.nanxiongnandi.com/*",
+        "https://*.vercel.app/*",
+        "https://*.now.sh/*",
+        "https://*.bing.com/*",
+        "https://*.jsdelivr.net/*",
+        "https://*.unpkg.com/*",
+        "https://*.cdnjs.cloudflare.com/*",
+        "https://*.googleusercontent.com/*",
+        "https://*.imgur.com/*",
+        "https://*.pexels.com/*",
+        "https://*.pixabay.com/*",
+        "https://*.yakei-kabegami.com/*"
     ],
     
     "omnibox": { 
