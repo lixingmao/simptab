@@ -84,14 +84,22 @@ define([ "jquery", "mousetrap", "carousel", "i18n" ], function( $, Mousetrap, ca
                             <div class="desc">' + i18n.GetLang( "welcome_155_desc_1" ) +'</div>\
                         </div>\
                     </div>',
+            "2.0.0": '\
+                    <div class="carousel-item" id="2.0.0">\
+                        <img src="../assets/images/welcome-v3.webp">\
+                        <div class="content">\
+                            <h2 class="title">Manifest V3 兼容性升级</h2>\
+                            <div class="desc">升级到Chrome扩展Manifest V3标准，提供更安全的使用体验和更好的性能表现</div>\
+                        </div>\
+                    </div>',
         },
         welcomeTmpl = '\
                     <div class="welcome-overlay">\
                         <div class="welcome">\
                             <div class="close"><span class="close"></span></div>\
-                            <div class="paging"><%= prev %></div>\
-                            <div class="carousel carousel-slider"><%= welcome %></div>\
-                            <div class="paging"><%= next %></div>\
+                            <div class="paging">{{prev}}</div>\
+                            <div class="carousel carousel-slider">{{welcome}}</div>\
+                            <div class="paging">{{next}}</div>\
                         </div>\
                     </div>',
         next_paging = '\
@@ -108,7 +116,7 @@ define([ "jquery", "mousetrap", "carousel", "i18n" ], function( $, Mousetrap, ca
         var detail = "";
         if ( ver.first ) {
             Object.keys( details ).forEach( function( item ) {
-                if ( ver.first && [ "1.5.5" ].includes( item ) ) {
+                if ( ver.first && [ "1.5.5", "2.0.0" ].includes( item ) ) {
                     return true;
                 }
                 detail += details[item];
@@ -165,9 +173,9 @@ define([ "jquery", "mousetrap", "carousel", "i18n" ], function( $, Mousetrap, ca
                                 <div class="desc">' + i18n.GetLang( "welcome_end_desc" ) +'</div>\
                             </div>\
                         </div>';
-            var html     = welcomeTmpl.replace(/<%- prev %>/g, prev_paging)
-                                      .replace(/<%- next %>/g, next_paging)
-                                      .replace(/<%- welcome %>/g, tmpl);
+            var html     = welcomeTmpl.replace(/\{\{prev\}\}/g, prev_paging)
+                                      .replace(/\{\{next\}\}/g, next_paging)
+                                      .replace(/\{\{welcome\}\}/g, tmpl);
             callback     = cb;
             $( "body" ).append( html );
             setTimeout( function() {

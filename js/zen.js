@@ -514,12 +514,23 @@ define([ "jquery", "mousetrap", "notify", "unveil", "i18n", "message", "comps", 
     }
 
     function devicesMode() {
-        navigator.getBattery().then( function( battery ) {
-            var network = navigator.onLine ? '≈ ' + navigator.connection.downlink + ' Mbps' : 'Offline',
-                charge  = ( battery.level * 100 ).toFixed() + '% ' + ( battery.charging ? 'Charging' : 'Battery' );
-            $( ".day-zen-mode" ).after( '<div class="devices-zen-mode">' + network + ' · ' + charge + '</div>' );
+        if (navigator.getBattery && typeof navigator.getBattery === 'function') {
+            navigator.getBattery().then( function( battery ) {
+                var network = navigator.onLine ? '≈ ' + (navigator.connection && navigator.connection.downlink ? navigator.connection.downlink : 'Unknown') + ' Mbps' : 'Offline',
+                    charge  = battery && battery.level !== undefined ? ( battery.level * 100 ).toFixed() + '% ' + ( battery.charging ? 'Charging' : 'Battery' ) : 'Unknown';
+                $( ".day-zen-mode" ).after( '<div class="devices-zen-mode">' + network + ' · ' + charge + '</div>' );
+                readStorage( ".devices-zen-mode", "devices" );
+            }).catch(function(error) {
+                console.warn('Battery API not available:', error);
+                var network = navigator.onLine ? 'Online' : 'Offline';
+                $( ".day-zen-mode" ).after( '<div class="devices-zen-mode">' + network + '</div>' );
+                readStorage( ".devices-zen-mode", "devices" );
+            });
+        } else {
+            var network = navigator.onLine ? 'Online' : 'Offline';
+            $( ".day-zen-mode" ).after( '<div class="devices-zen-mode">' + network + '</div>' );
             readStorage( ".devices-zen-mode", "devices" );
-        });
+        }
     }
 
     function ohtersMode() {

@@ -20,7 +20,7 @@ define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message"
                 </div>',
         favTmpl = '\
                 <div class="photograph">\
-                    <img src="' + oriImg + '" data-src=<%- album %>>\
+                    <img src="' + oriImg + '" data-src="{{album}}">\
                     <ul class="toolbox">\
                         <li><span data-balloon="' + i18n.GetLang( "manage_toolbar_use"    ) + '" data-balloon-pos="up" class="waves-effect useicon"><i class="fas fa-check-circle"></i></span></li>\
                         <li><span data-balloon="' + i18n.GetLang( "manage_toolbar_down"   ) + '" data-balloon-pos="up" class="waves-effect downicon"><i class="fas fa-arrow-circle-down"></i></span></li>\
@@ -30,39 +30,39 @@ define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message"
         subTmpl = '\
                 <div class="photograph">\
                     <div class="photos">\
-                        <div class="title"><%= title %></div>\
-                        <div class="desc"><%= desc %></div>\
-                        <div class="author"><a href="<%= contact %>" target="_blank"><%= name %></a></div>\
+                        <div class="title">{{title}}</div>\
+                        <div class="desc">{{desc}}</div>\
+                        <div class="author"><a href="{{contact}}" target="_blank">{{name}}</a></div>\
                         <div class="images">\
-                            <%= images %>\
+                            {{images}}\
                         </div>\
                     </div>\
                 </div>',
         exploreTmpl = '\
                 <div class="photograph">\
-                    <img src="' + oriImg + '" data-src=<%- album.thumb %>>\
+                    <img src="' + oriImg + '" data-src="{{album.thumb}}">\
                     <ul class="toolbox">\
-                        <li><a href="<%= album.link %>" target="_blank"><span class="waves-effect linkicon"><i class="fas fa-home"></i></span></a></li>\
+                        <li><a href="{{album.link}}" target="_blank"><span class="waves-effect linkicon"><i class="fas fa-home"></i></span></a></li>\
                         <li>\
-                            <a href="<%= album.contact %>" target="_blank">\
-                                <span data-balloon="<%= album.name %>" data-balloon-pos="up" class="waves-effect authoricon"><i class="fas fa-user-circle"></i></span>\
+                            <a href="{{album.contact}}" target="_blank">\
+                                <span data-balloon="{{album.name}}" data-balloon-pos="up" class="waves-effect authoricon"><i class="fas fa-user-circle"></i></span>\
                             </a>\
                         </li>\
-                        <li><span type="explore" data-vo="<%= encodeURI(JSON.stringify( album )) %>" data-balloon="' + i18n.GetLang( "manage_toolbar_use" ) + '" data-balloon-pos="up" class="waves-effect useicon"><i class="fas fa-check-circle"></i></span></li>\
-                        <li><span type="explore" data-balloon="' + i18n.GetLang( "manage_toolbar_down" ) + '" data-balloon-pos="up" class="waves-effect downicon" url="<%= album.down %>" ><i class="fas fa-arrow-circle-down"></i></span></li>\
+                        <li><span type="explore" data-vo="{{album.data}}" data-balloon="' + i18n.GetLang( "manage_toolbar_use" ) + '" data-balloon-pos="up" class="waves-effect useicon"><i class="fas fa-check-circle"></i></span></li>\
+                        <li><span type="explore" data-balloon="' + i18n.GetLang( "manage_toolbar_down" ) + '" data-balloon-pos="up" class="waves-effect downicon" url="{{album.down}}" ><i class="fas fa-arrow-circle-down"></i></span></li>\
                     </ul>\
                 </div>',
         imgTmpl = '\
                 <div class="image">\
-                    <img src="' + oriImg + '" data-src=<%- image.url %>>\
+                    <img src="' + oriImg + '" data-src="{{image.url}}">\
                     <ul class="toolbox">\
-                        <li><a href="<%= image.info %>" target="_blank"><span class="waves-effect linkicon"><i class="fas fa-home"></i></span></a></li>\
+                        <li><a href="{{image.info}}" target="_blank"><span class="waves-effect linkicon"><i class="fas fa-home"></i></span></a></li>\
                         <li>\
-                            <a href="<%= image.contact == "" ? "#" : image.contact %>" target="<%= image.contact == "" ? "_self" : "_blank" %>">\
-                                <span data-balloon="<%= image.name == "" ? "' + i18n.GetLang( "notify_mange_no_user" ) + '" : image.name %>" data-balloon-pos="up" class="waves-effect authoricon"><i class="fas fa-user-circle"></i></span>\
+                            <a href="{{image.contact}}" target="{{image.target}}">\
+                                <span data-balloon="{{image.name}}" data-balloon-pos="up" class="waves-effect authoricon"><i class="fas fa-user-circle"></i></span>\
                             </a>\
                         </li>\
-                        <li><span data-vo="<%= encodeURI(JSON.stringify( image )) %>" data-balloon="' + i18n.GetLang( "manage_toolbar_use" ) + '" data-balloon-pos="up" class="waves-effect useicon"><i class="fas fa-check-circle"></i></span></li>\
+                        <li><span data-vo="{{image.data}}" data-balloon="' + i18n.GetLang( "manage_toolbar_use" ) + '" data-balloon-pos="up" class="waves-effect useicon"><i class="fas fa-check-circle"></i></span></li>\
                         <li><span data-balloon="' + i18n.GetLang( "manage_toolbar_down"   ) + '" data-balloon-pos="up" class="waves-effect downicon"><i class="fas fa-arrow-circle-down"></i></span></li>\
                     </ul>\
                 </div>';
@@ -199,9 +199,7 @@ define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message"
         files.List( function( result ) {
             if ( result.length > 0 ) {
                 var html     = result.map(function(album) {
-                        return favTmpl.replace(/<%- album\.title %>/g, album.title)
-                                      .replace(/<%- album\.url %>/g, album.url)
-                                      .replace(/<%- album\.user %>/g, album.user);
+                        return favTmpl.replace(/\{\{album\}\}/g, album.url);
                     }).join('');
                 $( ".manage .albums .favorite" ).html( html );
             } else $( ".manage .empty" ).text( i18n.GetLang( "mange_explore_empty" ) );
@@ -249,17 +247,24 @@ define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message"
 
                     // get images html template
                     var imgHtml  = images.map(function(image) {
-                            return imgTmpl.replace(/<%- image\.url %>/g, image.url)
-                                          .replace(/<%- image\.info %>/g, image.info)
-                                          .replace(/<%- image\.hdurl %>/g, image.hdurl);
+                            var contact = image.contact || "#";
+                            var target = image.contact ? "_blank" : "_self";
+                            var name = image.name || i18n.GetLang( "notify_mange_no_user" );
+                            var data = encodeURI(JSON.stringify(image));
+                            return imgTmpl.replace(/\{\{image\.url\}\}/g, image.url)
+                                          .replace(/\{\{image\.info\}\}/g, image.info)
+                                          .replace(/\{\{image\.contact\}\}/g, contact)
+                                          .replace(/\{\{image\.target\}\}/g, target)
+                                          .replace(/\{\{image\.name\}\}/g, name)
+                                          .replace(/\{\{image\.data\}\}/g, data);
                         }).join('');
 
                     // get subscribe html template
-                    var scribHTML = subTmpl.replace(/<%- title %>/g, title)
-                                          .replace(/<%- desc %>/g, desc)
-                                          .replace(/<%- name %>/g, name)
-                                          .replace(/<%- contact %>/g, contact)
-                                          .replace(/<%- images %>/g, imgHtml);
+                    var scribHTML = subTmpl.replace(/\{\{title\}\}/g, title)
+                                          .replace(/\{\{desc\}\}/g, desc)
+                                          .replace(/\{\{name\}\}/g, name)
+                                          .replace(/\{\{contact\}\}/g, contact)
+                                          .replace(/\{\{images\}\}/g, imgHtml);
 
                     html += scribHTML;
                 });
@@ -316,12 +321,13 @@ define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message"
                             });
                         }
                         var html     = items.map(function(album) {
-                                return exploreTmpl.replace(/<%- album\.thumb %>/g, album.thumb)
-                                                  .replace(/<%- album\.url %>/g, album.url)
-                                                  .replace(/<%- album\.name %>/g, album.name)
-                                                  .replace(/<%- album\.contact %>/g, album.contact)
-                                                  .replace(/<%- album\.info %>/g, album.info)
-                                                  .replace(/<%- album\.down %>/g, album.down);
+                                var data = encodeURI(JSON.stringify(album));
+                                return exploreTmpl.replace(/\{\{album\.thumb\}\}/g, album.thumb)
+                                                  .replace(/\{\{album\.link\}\}/g, album.info)
+                                                  .replace(/\{\{album\.name\}\}/g, album.name)
+                                                  .replace(/\{\{album\.contact\}\}/g, album.contact)
+                                                  .replace(/\{\{album\.data\}\}/g, data)
+                                                  .replace(/\{\{album\.down\}\}/g, album.down);
                             }).join('');
                         $( ".manage .albums .explore .empty" ).remove();
                         $( ".manage .albums .explore" ).append( html );

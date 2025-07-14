@@ -1,6 +1,6 @@
 {
   "name"    : "simptab_project_workflow",
-  "version" : "1.0.4",
+  "version" : "2.0.0",
   "description": "SimpTab develop/deploy",
   "author": "Kenshin Wang <kenshin@ksria.com>",
   "license": "MIT",

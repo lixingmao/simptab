@@ -90,6 +90,12 @@ define([ "jquery", "notify", "i18n" ], function( $, Notify, i18n ) {
                 details : i18n.GetLang( "version_detail_10" ),
                 permissions: [],
                 removePermissions : []
+            },
+            "2.0.0" : {
+                level   : 12,
+                details : "Chrome Extension Manifest V3 compatibility update with security improvements",
+                permissions: [],
+                removePermissions : []
             }
         };
 
