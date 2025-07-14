@@ -5,7 +5,7 @@ define([ "jquery", "lodash", "notify", "i18n", "vo", "date", "options", "files",
 
     var albumLoad = 0,
         io     = new IntersectionObserver( observerImg ),
-        oriImg = chrome.extension.getURL( "/assets/images/loading.gif" ),
+        oriImg = chrome.runtime.getURL("/assets/images/loading.gif"),
         rTmpl  = '\
                 <div class="close"><span class="waves-effect close"><i class="fas fa-times-circle"></i></span></div>\
                 <div class="tabs">\

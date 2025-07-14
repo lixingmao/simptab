@@ -40,7 +40,7 @@ module.exports = function( grunt ) {
       publish: {
         files: [{
             expand: true,
-            src: [ "_locales/**", "assets/**", "!assets/**/*.woff", "vender/require.js", "manifest.json", "vender/waves/waves.min.css", "vender/notify/notify.min.css", "vender/balloon.min.css", "vender/carousel/carousel.css", "vender/intro/intro.min.css" ],
+            src: [ "_locales/**", "assets/**", "!assets/**/*.woff", "vender/require.js", "manifest-v3.json", "vender/waves/waves.min.css", "vender/notify/notify.min.css", "vender/balloon.min.css", "vender/carousel/carousel.css", "vender/intro/intro.min.css", "vender/fontawesome/**" ],
             dest: "dest-extension"
           }]
       }
@@ -93,6 +93,16 @@ module.exports = function( grunt ) {
   require( "matchdep" ).filterDev( "grunt-*" ).forEach( grunt.loadNpmTasks );
 
   grunt.registerTask( "dev", [ "watch" ]);
-  grunt.registerTask( "publish", [ "clean", "copy", "htmlmin", "requirejs" ]);
+  grunt.registerTask( "publish", [ "clean", "copy", "htmlmin", "requirejs", "rename-manifest" ]);
+  grunt.registerTask( "rename-manifest", function() {
+    var fs = require('fs');
+    var path = require('path');
+    var src = path.join(__dirname, 'dest-extension', 'manifest-v3.json');
+    var dest = path.join(__dirname, 'dest-extension', 'manifest.json');
+    if (fs.existsSync(src)) {
+      fs.renameSync(src, dest);
+      grunt.log.writeln('Renamed manifest-v3.json to manifest.json');
+    }
+  });
 
 };

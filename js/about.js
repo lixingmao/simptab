@@ -4,17 +4,17 @@ define([ "jquery", "lodash", "notify", "i18n" ], function( $, _, Notify, i18n ) 
         rTmpl  = '\
                 <div class="close"><span class="waves-effect close"><i class="fas fa-times-circle"></i></span></div>\
                     <div class="about">\
-                        <div class="banner"><img src="filesystem:' + chrome.extension.getURL( "temporary/background.jpg" ) + '?' + +new Date() + '"/></div>\
+                        <div class="banner"><img src="filesystem:' + chrome.runtime.getURL( "temporary/background.jpg" ) + '?' + +new Date() + '"/></div>\
                         <div class="content">\
                             <div class="title">\
                                 <h1>' + i18n.GetLang( 'short_title' ) + '</h1>\
                                 <div>\
-                                    <a target="_blank" href="https://github.com/Kenshin/simptab/releases"><img src="' + chrome.extension.getURL( "assets/images/version.svg" ) + '"></a>\
-                                    <a target="_blank" href="http://ksria.com/simptab"><img src="' + chrome.extension.getURL( "assets/images/website.svg" ) + '"></a>\
-                                    <a target="_blank" href="https://gitter.im/kenshin/simptab"><img src="' + chrome.extension.getURL( "assets/images/gitter.svg" ) + '"></a>\
-                                    <a target="_blank" href="https://github.com/Kenshin/simptab"><img src="' + chrome.extension.getURL( "assets/images/github.svg" ) + '"></a>\
-                                    <a target="_blank" href="http://ksria.com/simptab/docs/#/CHANGELOG' + prefix + '"><img src="' + chrome.extension.getURL( "assets/images/changelog.svg" ) + '"></a>\
-                                    <a target="_blank" href="https://weibo.com/simptab"><img src="' + chrome.extension.getURL( "assets/images/weibo.svg" ) + '"></a>\
+                                    <a target="_blank" href="https://github.com/Kenshin/simptab/releases"><img src="' + chrome.runtime.getURL( "assets/images/version.svg" ) + '"></a>\
+                                    <a target="_blank" href="http://ksria.com/simptab"><img src="' + chrome.runtime.getURL( "assets/images/website.svg" ) + '"></a>\
+                                    <a target="_blank" href="https://gitter.im/kenshin/simptab"><img src="' + chrome.runtime.getURL( "assets/images/gitter.svg" ) + '"></a>\
+                                    <a target="_blank" href="https://github.com/Kenshin/simptab"><img src="' + chrome.runtime.getURL( "assets/images/github.svg" ) + '"></a>\
+                                    <a target="_blank" href="http://ksria.com/simptab/docs/#/CHANGELOG' + prefix + '"><img src="' + chrome.runtime.getURL( "assets/images/changelog.svg" ) + '"></a>\
+                                    <a target="_blank" href="https://weibo.com/simptab"><img src="' + chrome.runtime.getURL( "assets/images/weibo.svg" ) + '"></a>\
                                 </div>\
                             </div>\
                             <h3>' + i18n.GetLang( 'extension_desc' ) + '</h3>\

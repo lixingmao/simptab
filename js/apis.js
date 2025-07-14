@@ -697,7 +697,7 @@ define([ "jquery", "i18n", "setting", "vo", "date", "error", "cdns", "options", 
             if ( !setting.IsRandom() || vo.isDislike( url )) {
                 vo.Create.apply( vo, arguments );
                 vo.new.hdurl = cdns.New( vo.new.hdurl, vo.new.type );
-                vo.new.favorite != -1 && ( vo.new.hdurl = "filesystem:" + chrome.extension.getURL( "/" ) + "temporary/favorites/" + vo.new.favorite + ".jpg" );
+                vo.new.favorite != -1 && ( vo.new.hdurl = chrome.runtime.getURL("assets/images/favorites/" + vo.new.favorite + ".jpg") );
                 dtd.resolve( vo.new );
             }
             else {

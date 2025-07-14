@@ -337,7 +337,7 @@ define([ "jquery", "mousetrap", "lodash", "notify", "unveil", "i18n", "message",
     }
 
     function scriptManage( result ) {
-        var oriImg = chrome.extension.getURL( "/assets/images/loading.gif" ),
+        var oriImg = chrome.runtime.getURL( "/assets/images/loading.gif" ),
             html = '<div class="script">\
                         <img src="' + oriImg + '" data-src=<%- root + item.snap %>>\
                         <div class="toolbar">\

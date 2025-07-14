@@ -253,7 +253,7 @@ define([ "jquery", "date", "i18n", "setting", "apis", "vo", "files", "controlbar
         vo.cur = vo.Clone( vo.new );
         vo.Set( vo.cur );
         // update controlbar
-        message.Publish( message.TYPE.UPDATE_CONTROLBAR, { url: 'filesystem:' + chrome.extension.getURL( "/" ) + 'temporary/background.jpg' + '?' + +new Date() });
+        message.Publish( message.TYPE.UPDATE_CONTROLBAR, { url: 'filesystem:' + chrome.runtime.getURL( "/" ) + 'temporary/background.jpg' + '?' + +new Date() });
         // remove effect
         //bgeffect( "delete" );
         // re-set simptab-background-update
@@ -262,7 +262,7 @@ define([ "jquery", "date", "i18n", "setting", "apis", "vo", "files", "controlbar
 
     /*
     function bgeffect( type ) {
-        var url = 'filesystem:' + chrome.extension.getURL( "/" ) + 'temporary/background.jpg' + '?' + +new Date();
+        var url = 'filesystem:' + chrome.runtime.getURL( "/" ) + 'temporary/background.jpg' + '?' + +new Date();
         if ( type == "add" ) {
             $( ".background" ).append( '<div class="bgeffect" style="background-image: url(' + url +');"></div>' );
             setTimeout( function() {
@@ -299,7 +299,7 @@ define([ "jquery", "date", "i18n", "setting", "apis", "vo", "files", "controlbar
         SetPosition: function() {
             var value = localStorage[ "simptab-background-position" ];
             if ( value == "mask" ) {
-                var url       = vo.cur.type == "default" ? vo.cur.hdurl : "filesystem:" + chrome.extension.getURL( "/" ) + "temporary/background.jpg",
+                var url       = vo.cur.type == "default" ? vo.cur.hdurl : "filesystem:" + chrome.runtime.getURL( "/" ) + "temporary/background.jpg",
                     maxHeight = 800,
                     height    = $( "body" ).height(),
                     earth     = vo.cur.type == "earth" ? "background-size: contain;background-repeat: no-repeat;background-color: black;" : "";
