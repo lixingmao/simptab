@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--config",
+        "/Users/lixingmao/Documents/Developer/WebSpace/simptab/.mcp.json"
+      ]
+    }
+  },
+  "browser": {
+    "launchOptions": {
+      "args": [
+        "--load-extension=/Users/lixingmao/Documents/Developer/WebSpace/simptab/dest-extension",
+        "--disable-extensions-except=/Users/lixingmao/Documents/Developer/WebSpace/simptab/dest-extension",
+        "--no-first-run",
+        "--no-default-browser-check"
+      ]
+    }
+  }
+}

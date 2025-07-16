@@ -18,7 +18,9 @@
   },
   "scripts": {
     "publish": "grunt publish",
-    "server": "webpack-dev-server --hot --progress --colors"
+    "server": "webpack-dev-server --hot --progress --colors",
+    "update": "./update-plugin.sh",
+    "update-auto": "node update-plugin-auto.js"
   },
   "devDependencies"           : {
     "grunt"                   : "*",

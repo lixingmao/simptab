@@ -1113,18 +1113,26 @@ img {
 }
 
 .manage .album .photograph ul li span {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
 
     font-size: 14px;
-    line-height: 14px;
+    line-height: 1;
 
     background-position: center;
     background-repeat: no-repeat;
 
-    overflow: initial;
+    overflow: visible;
+    cursor: pointer;
+}
+
+.manage .album .photograph ul li span i {
+    font-size: 14px;
+    line-height: 1;
 }
 
 .manage .album .photograph img {
@@ -1192,6 +1200,64 @@ img {
     justify-content: flex-start;
 
     width: 100%;
+}
+
+.manage .album.subscribe .photos .image {
+    margin: 10px;
+}
+
+.manage .album.subscribe .photos .image ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    margin: 0;
+    padding: 0;
+
+    width: 150px;
+}
+
+.manage .album.subscribe .photos .image ul li {
+    padding-left: 8px;
+    list-style-type: none;
+}
+
+.manage .album.subscribe .photos .image ul li a {
+    color: inherit;
+}
+
+.manage .album.subscribe .photos .image ul li span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    font-size: 14px;
+    line-height: 1;
+
+    background-position: center;
+    background-repeat: no-repeat;
+
+    overflow: visible;
+    cursor: pointer;
+}
+
+.manage .album.subscribe .photos .image ul li span i {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.manage .album.subscribe .photos .image img {
+    padding: 2px;
+
+    max-width: 150px;
+    height: auto;
+    background: transparent;
+
+    border: none;
+    border-radius: 10px;
 }
 
 /*

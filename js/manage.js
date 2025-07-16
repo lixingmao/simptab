@@ -63,7 +63,7 @@ define([ "jquery", "notify", "i18n", "vo", "date", "options", "files", "message"
                             </a>\
                         </li>\
                         <li><span data-vo="{{image.data}}" data-balloon="' + i18n.GetLang( "manage_toolbar_use" ) + '" data-balloon-pos="up" class="waves-effect useicon"><i class="fas fa-check-circle"></i></span></li>\
-                        <li><span data-balloon="' + i18n.GetLang( "manage_toolbar_down"   ) + '" data-balloon-pos="up" class="waves-effect downicon"><i class="fas fa-arrow-circle-down"></i></span></li>\
+                        <li><span data-balloon="' + i18n.GetLang( "manage_toolbar_down"   ) + '" data-balloon-pos="up" class="waves-effect downicon" url="{{image.url}}"><i class="fas fa-arrow-circle-down"></i></span></li>\
                     </ul>\
                 </div>';
 
